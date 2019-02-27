@@ -1,0 +1,11 @@
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/obj/Debug/netcoreapp2.2/Rpi.listen.csprojAssemblyReference.cache
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/obj/Debug/netcoreapp2.2/Rpi.listen.csproj.CoreCompileInputs.cache
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/obj/Debug/netcoreapp2.2/Rpi.listen.AssemblyInfoInputs.cache
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/obj/Debug/netcoreapp2.2/Rpi.listen.AssemblyInfo.cs
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/bin/Debug/netcoreapp2.2/Rpi.listen.deps.json
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/bin/Debug/netcoreapp2.2/Rpi.listen.runtimeconfig.json
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/bin/Debug/netcoreapp2.2/Rpi.listen.runtimeconfig.dev.json
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/bin/Debug/netcoreapp2.2/Rpi.listen.dll
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/bin/Debug/netcoreapp2.2/Rpi.listen.pdb
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/obj/Debug/netcoreapp2.2/Rpi.listen.dll
+/home/dave/GitHub/Rpi.Sockets/Rpi.listen/obj/Debug/netcoreapp2.2/Rpi.listen.pdb
