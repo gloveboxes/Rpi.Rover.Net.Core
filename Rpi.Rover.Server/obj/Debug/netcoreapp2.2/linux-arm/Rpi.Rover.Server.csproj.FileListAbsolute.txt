@@ -12,3 +12,17 @@
 /home/dave/GitHub/Rpi.Rover/Rpi.Rover.Server/obj/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.pdb
 /home/dave/GitHub/Rpi.Rover/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/libhostpolicy.so
 /home/dave/GitHub/Rpi.Rover/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/libhostfxr.so
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/libhostpolicy.so
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/libhostfxr.so
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.Server
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.deps.json
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.runtimeconfig.json
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.runtimeconfig.dev.json
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.dll
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/bin/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.pdb
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/obj/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.csprojAssemblyReference.cache
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/obj/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.csproj.CoreCompileInputs.cache
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/obj/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.AssemblyInfoInputs.cache
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/obj/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.AssemblyInfo.cs
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/obj/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.dll
+/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/obj/Debug/netcoreapp2.2/linux-arm/Rpi.Rover.Server.pdb

@@ -1,6 +1,14 @@
 {
-  "ProjectFilePath": "/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Client/Rpi.Rover.csproj",
+  "ProjectFilePath": "/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Client/Rpi.Rover.Client.csproj",
   "TargetFramework": "netcoreapp2.2",
   "TagHelpers": [],
-  "Configuration": null
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
 }

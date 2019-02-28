@@ -14,7 +14,7 @@ namespace Rpi.listen
             OneMinus = 20
         }
 
-        static Controller tcp = new Controller();
+        static RoverServer tcp = new RoverServer();
         static GpioController controller = new GpioController();
 
         static Motor left = new Motor(controller, (int)MotorMap.TwoPlus, (int)MotorMap.TwoMinus);

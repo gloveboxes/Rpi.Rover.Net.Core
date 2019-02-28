@@ -3189,11 +3189,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/dave/GitHub/Rpi.Rover/Rpi.Rover.Server/Rpi.Rover.Server.csproj",
+      "projectUniqueName": "/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/Rpi.Rover.Server.csproj",
       "projectName": "Rpi.Rover.Server",
-      "projectPath": "/home/dave/GitHub/Rpi.Rover/Rpi.Rover.Server/Rpi.Rover.Server.csproj",
+      "projectPath": "/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/Rpi.Rover.Server.csproj",
       "packagesPath": "/home/dave/.nuget/packages/",
-      "outputPath": "/home/dave/GitHub/Rpi.Rover/Rpi.Rover.Server/obj/",
+      "outputPath": "/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"

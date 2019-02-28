@@ -1,5 +1,5 @@
 {
-  "ProjectFilePath": "/home/dave/GitHub/Rpi.Rover/Rpi.Rover.Server/Rpi.Rover.Server.csproj",
+  "ProjectFilePath": "/home/dave/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Server/Rpi.Rover.Server.csproj",
   "TargetFramework": "netcoreapp2.2",
   "TagHelpers": [],
   "Configuration": {
