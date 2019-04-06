@@ -29,6 +29,19 @@
                     "\"rsync -rvuz ${workspaceFolder}/bin/linux-arm/publish/ pi@pisense.local:/home/pi/dotnet/${workspaceFolderBasename}\""
                 ],
             },
+            "windows": {
+                "command": "cmd",
+                "type": "shell",
+                "args": [
+                    "/c",
+                    "\"dotnet publish -r linux-arm -o bin/linux-arm/publish",
+                    "${workspaceFolder}/${workspaceFolderBasename}.csproj\"",
+                    "&&",
+                    "bash",
+                    "-c",
+                    "\"rsync -rvuz /mnt/c/Data/GitHub/Rpi.Rover.Net.Core/Rpi.Rover.Client/bin/linux-arm/publish/ pi@192.168.0.150:/home/pi/dotnet/${workspaceFolderBasename}\""
+                ],
+            },
             "problemMatcher": "$msCompile"
         }
     ]

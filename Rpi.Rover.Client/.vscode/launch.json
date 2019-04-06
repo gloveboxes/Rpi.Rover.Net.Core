@@ -18,7 +18,30 @@
                     "pipeCwd": "${workspaceRoot}",
                     "pipeProgram": "/usr/bin/ssh",
                     "pipeArgs": [
-                        "pi@pisense.local"
+                        "pi@rpisense.local"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            },
+            "osx": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "/usr/bin/ssh",
+                    "pipeArgs": [
+                        "pi@rpisense.local"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            },
+            "windows": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "plink",
+                    "pipeArgs": [
+                        "-ssh",
+                        "-pw",
+                        "raspberry",
+                        "pi@rpisense.local"
                     ],
                     "debuggerPath": "~/vsdbg/vsdbg"
                 }
