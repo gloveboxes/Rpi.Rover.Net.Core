@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Publish .NET Core and Remote Launch",
+            "name": "Publish, Launch, and Attach Debugger",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "publish",
@@ -65,6 +65,29 @@
                     "debuggerPath": "~/vsdbg/vsdbg"
                 }
             },
+            "osx": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "/usr/bin/ssh",
+                    "pipeArgs": [
+                        "pi@pisense.local"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            },
+            "windows": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "plink",
+                    "pipeArgs": [
+                        "-ssh",
+                        "-pw",
+                        "raspberry",
+                        "pi@192.168.0.150"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            }
         }
     ]
 }

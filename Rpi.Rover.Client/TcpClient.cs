@@ -76,8 +76,8 @@ namespace Rpi.Rover.Client
                 String responseData = String.Empty;
 
                 // Read the first batch of the TcpServer response bytes.
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                // Int32 bytes = stream.Read(data, 0, data.Length);
+                // responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 // Console.WriteLine("Received: {0}", responseData);
                 //     }
                 //     catch (Exception ex)
@@ -119,7 +119,7 @@ namespace Rpi.Rover.Client
                 client = null;                
             }
 
-            Console.WriteLine("\n Press Enter to continue...");
+            // Console.WriteLine("\n Press Enter to continue...");
             // Console.Read();
         }
     }

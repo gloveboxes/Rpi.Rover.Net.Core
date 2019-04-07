@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
 using System.Net.Sockets;
@@ -10,6 +11,13 @@ namespace Rpi.Rover.Client
 {
     class Program
     {
+
+        static Queue<string> messageQueue = new Queue<string>();
+        static Motor lastCommand = Motor.Unknown;
+
+        private static AutoResetEvent sync = new AutoResetEvent(false);
+
+
         enum Motor
         {
             Stop,
@@ -20,7 +28,8 @@ namespace Rpi.Rover.Client
             RightBackward,
             Backward,
             SharpLeft,
-            SharpRight
+            SharpRight,
+            Unknown
         }
 
         static MyTcpClient client = new MyTcpClient("rpirover.local");
@@ -29,6 +38,17 @@ namespace Rpi.Rover.Client
 
         static void Main(string[] args)
         {
+            System.AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+            {
+                client.Close();
+            };
+
+            client.Open();
+
+            ThreadStart threadDelegate = new ThreadStart(ProcessMessages);
+            Thread newThread = new Thread(threadDelegate);
+            newThread.Start();
+
             while (true)
             {
                 if (!senseHat.Sensors.ImuSensor.Update())
@@ -41,13 +61,6 @@ namespace Rpi.Rover.Client
                     continue;
                 }
 
-                // if (!senseHat.Joystick.Update())
-                // {
-                //     // client.Connect(Motor.RightForward.ToString());
-                //     continue;
-                // }
-                // UpdatePosition();
-
                 Image colors = CreateGravityBlobScreen(senseHat.Sensors.Acceleration.Value);
 
                 senseHat.Display.CopyColorsToScreen(colors);
@@ -58,47 +71,69 @@ namespace Rpi.Rover.Client
 
                 Thread.Sleep(50);
             }
-
-            client.Close();
         }
 
         private static void SetMotorDirection(Vector3 vector)
         {
 
+
             if (vector.X < -0.55)
             {
-                client.Connect(((int)Motor.SharpLeft).ToString());
-                motorRunning = true;
+                QueueMessage(Motor.SharpLeft);
             }
             else if (vector.X > 0.55)
             {
-                client.Connect(((int)Motor.SharpRight).ToString());
-                motorRunning = true;
+                QueueMessage(Motor.SharpRight);
             }
             else if (vector.X < -0.25)
             {
-                client.Connect(((int)Motor.RightForward).ToString());
-                motorRunning = true;
+                QueueMessage(Motor.RightForward);
             }
             else if (vector.X > 0.25)
             {
-                client.Connect(((int)Motor.LeftForward).ToString());
-                motorRunning = true;
+                QueueMessage(Motor.LeftForward);
             }
             else if (vector.Y < -0.25)
             {
-                client.Connect(((int)Motor.Forward).ToString());
-                motorRunning = true;
+                QueueMessage(Motor.Forward);
             }
             else if (vector.Y > 0.25)
             {
-                client.Connect(((int)Motor.Backward).ToString());
-                motorRunning = true;
+                messageQueue.Enqueue(((int)Motor.Backward).ToString());
+                QueueMessage(Motor.Backward);
             }
             else
             {
-                client.Connect(((int)Motor.Stop).ToString());
-                motorRunning = true;
+                QueueMessage(Motor.Stop);
+            }
+        }
+
+        static void QueueMessage(Motor cmd)
+        {
+            if (cmd == lastCommand) { return; }
+
+            lastCommand = cmd;
+
+            messageQueue.Clear();
+
+            messageQueue.Enqueue(((int)cmd).ToString());
+
+            motorRunning = cmd != Motor.Stop;
+
+            sync.Set();
+        }
+
+        static void ProcessMessages()
+        {
+            while (true)
+            {
+                sync.WaitOne();
+                string msg;
+
+                if (messageQueue.TryDequeue(out msg))
+                {
+                    client.Connect(msg);
+                }
             }
         }
 
@@ -138,55 +173,6 @@ namespace Rpi.Rover.Client
             }
 
             return screen;
-        }
-
-        private static void UpdatePosition()
-        {
-            bool _lastPressingEnter = false;
-
-            if (senseHat.Joystick.LeftKey == KeyState.Pressed)
-            {
-                client.Connect(((int)Motor.LeftForward).ToString());
-                motorRunning = true;
-            }
-            else if (senseHat.Joystick.RightKey == KeyState.Pressed)
-            {
-                client.Connect(((int)Motor.RightForward).ToString());
-                motorRunning = true;
-            }
-
-            if (senseHat.Joystick.UpKey == KeyState.Pressed)
-            {
-                client.Connect(((int)Motor.Forward).ToString());
-                motorRunning = true;
-            }
-            else if (senseHat.Joystick.DownKey == KeyState.Pressed)
-            {
-                client.Connect(((int)Motor.Backward).ToString());
-                motorRunning = true;
-            }
-
-            // Is the enter (middle) key currently being pressed?
-            bool currentPressingEnter = senseHat.Joystick.EnterKey == KeyState.Pressing;
-
-            // Has its state been changed since the last check?
-            if (_lastPressingEnter != currentPressingEnter)
-            {
-                // Remember the current state for the next check.
-                _lastPressingEnter = currentPressingEnter;
-
-                if (!motorRunning)
-                {
-                    client.Connect(((int)Motor.Forward).ToString());
-                }
-                else
-                {
-                    client.Connect(((int)Motor.Stop).ToString());
-                }
-
-                motorRunning = !motorRunning;
-
-            }
         }
     }
 }

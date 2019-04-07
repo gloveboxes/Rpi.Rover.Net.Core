@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Publish .NET Core and Remote Launch",
+            "name": "Publish, Launch, and Attach Debugger",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "publish",
             "program": "~/dotnet/${workspaceFolderBasename}/${workspaceFolderBasename}",
             "cwd": "~/dotnet/${workspaceFolderBasename}",
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "console": "internalConsole",
             "linux": {
                 "pipeTransport": {
@@ -23,25 +23,70 @@
                     "debuggerPath": "~/vsdbg/vsdbg"
                 }
             },
+            "osx": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "/usr/bin/ssh",
+                    "pipeArgs": [
+                        "pi@rpirover.local"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            },
+            "windows": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "plink",
+                    "pipeArgs": [
+                        "-ssh",
+                        "-pw",
+                        "raspberry",
+                        "pi@192.168.0.126"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            },
         },
         {
-            "name": ".NET Core Remote Launch",
+            "name": "Run .NET Core and Remote Launch",
             "type": "coreclr",
             "request": "launch",
-            "program": "/usr/share/dotnet/dotnet",
-            "args": [
-                "./${workspaceFolderBasename}.dll"
-            ],
+            "program": "~/dotnet/${workspaceFolderBasename}/${workspaceFolderBasename}",
             "cwd": "~/dotnet/${workspaceFolderBasename}",
             "stopAtEntry": false,
             "console": "internalConsole",
-            "pipeTransport": {
-                "pipeCwd": "${workspaceRoot}",
-                "pipeProgram": "/usr/bin/ssh",
-                "pipeArgs": [
-                    "pi@rpirover.local"
-                ],
-                "debuggerPath": "~/vsdbg/vsdbg"
+            "linux": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "/usr/bin/ssh",
+                    "pipeArgs": [
+                        "pi@pisense.local"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            },
+            "osx": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "/usr/bin/ssh",
+                    "pipeArgs": [
+                        "pi@pisense.local"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
+            },
+            "windows": {
+                "pipeTransport": {
+                    "pipeCwd": "${workspaceRoot}",
+                    "pipeProgram": "plink",
+                    "pipeArgs": [
+                        "-ssh",
+                        "-pw",
+                        "raspberry",
+                        "pi@192.168.0.150"
+                    ],
+                    "debuggerPath": "~/vsdbg/vsdbg"
+                }
             }
         }
     ]
