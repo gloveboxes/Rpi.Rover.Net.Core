@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Device.Gpio;
+using System.Diagnostics;
+using System.IO;
 
 namespace Rpi.listen
 {
@@ -69,8 +71,36 @@ namespace Rpi.listen
                         left.Backward();
                         right.Forward();
                         break;
-
+                    case 9:
+                        ShutDown();
+                        break;
                 }
+            }
+        }
+
+        static void ShutDown()
+        {
+            string result;
+
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = @"/bin/bash";
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            start.Arguments = "-c \"sudo halt\"";
+
+            try
+            {
+                using (Process process = Process.Start(start))
+                {
+                    using (StreamReader reader = process.StandardOutput)
+                    {
+                        result = reader.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

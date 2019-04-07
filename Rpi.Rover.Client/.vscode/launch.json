@@ -41,7 +41,7 @@
                         "-ssh",
                         "-pw",
                         "raspberry",
-                        "pi@rpisense.local"
+                        "pi@192.168.0.150"
                     ],
                     "debuggerPath": "~/vsdbg/vsdbg"
                 }

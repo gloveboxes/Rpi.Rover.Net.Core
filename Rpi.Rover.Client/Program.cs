@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -29,6 +31,7 @@ namespace Rpi.Rover.Client
             Backward,
             SharpLeft,
             SharpRight,
+            ShutDown,
             Unknown
         }
 
@@ -59,6 +62,14 @@ namespace Rpi.Rover.Client
                 if (!senseHat.Sensors.Acceleration.HasValue)
                 {
                     continue;
+                }
+
+                if (senseHat.Joystick.Update())
+                {
+                    if (senseHat.Joystick.EnterKey == KeyState.Pressing)
+                    {
+                        QueueMessage(Motor.ShutDown);
+                    }
                 }
 
                 Image colors = CreateGravityBlobScreen(senseHat.Sensors.Acceleration.Value);
@@ -133,6 +144,13 @@ namespace Rpi.Rover.Client
                 if (messageQueue.TryDequeue(out msg))
                 {
                     client.Connect(msg);
+
+                    // if shutdown msg sense to Rover Server then also shut down this client
+                    var cmd = (Motor) Enum.Parse(typeof(Motor), msg);
+                    if (cmd == Motor.ShutDown)
+                    {
+                        ShutDown();
+                    }
                 }
             }
         }
@@ -173,6 +191,32 @@ namespace Rpi.Rover.Client
             }
 
             return screen;
+        }
+
+        static void ShutDown()
+        {
+            string result;
+
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = @"/bin/bash";
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            start.Arguments = "-c \"sudo halt\"";
+
+            try
+            {
+                using (Process process = Process.Start(start))
+                {
+                    using (StreamReader reader = process.StandardOutput)
+                    {
+                        result = reader.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
