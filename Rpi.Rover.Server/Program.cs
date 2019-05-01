@@ -7,13 +7,27 @@ namespace Rpi.listen
 {
     class Program
     {
-
         enum MotorMap : byte
         {
             TwoPlus = 21,
             TwoMinus = 26,
             OnePlus = 19,
             OneMinus = 20
+        }
+
+        enum MotorControl
+        {
+            Stop,
+            Forward,
+            LeftForward,
+            RightForward,
+            LeftBackward,
+            RightBackward,
+            Backward,
+            SharpLeft,
+            SharpRight,
+            ShutDown,
+            Unknown
         }
 
         static RoverServer tcp = new RoverServer();
@@ -29,49 +43,50 @@ namespace Rpi.listen
 
         static void roverActions(string action)
         {
-            int _action;
+            int cmd;
+
             // Console.WriteLine(action);
-            if (int.TryParse(action, out _action))
+            if (int.TryParse(action, out cmd))
             {
-                switch (_action)
+                switch ((MotorControl)cmd)
                 {
-                    case 0: // stop
+                    case MotorControl.Stop: // stop
                         left.Stop();
                         right.Stop();
                         break;
-                    case 1: // forward
+                    case MotorControl.Forward: // forward
                         left.Forward();
                         right.Forward();
                         break;
-                    case 2: // left
+                    case MotorControl.LeftForward: // left
                         left.Stop();
                         right.Forward();
                         break;
-                    case 3: // right
+                    case MotorControl.RightForward: // right
                         left.Forward();
                         right.Stop();
                         break;
-                    case 4: // leftbackward
+                    case MotorControl.LeftBackward: // leftbackward
                         left.Stop();
                         right.Backward();
                         break;
-                    case 5: // right backward
+                    case MotorControl.RightBackward: // right backward
                         left.Backward();
                         right.Stop();
                         break;
-                    case 6:
+                    case MotorControl.Backward:
                         left.Backward();
                         right.Backward();
                         break;
-                    case 7: // sharpleft
+                    case MotorControl.SharpLeft: // sharpleft
                         left.Forward();
                         right.Backward();
                         break;
-                    case 8: //sharpright
+                    case MotorControl.SharpRight: //sharpright
                         left.Backward();
                         right.Forward();
                         break;
-                    case 9:
+                    case MotorControl.ShutDown:
                         ShutDown();
                         break;
                 }
