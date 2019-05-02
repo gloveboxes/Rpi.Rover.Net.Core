@@ -45,15 +45,19 @@ namespace Rpi.listen
 
 
         static void Main(string[] args)
-        {
-            client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+        {           
 
-
-            string clientId = Guid.NewGuid().ToString();
-            client.Connect(clientId);
-
-            // subscribe to the topic "/home/temperature" with QoS 2 
-            client.Subscribe(new string[] { "/rover/motor" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            try
+            {        
+                client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;        
+                string clientId = Guid.NewGuid().ToString();
+                client.Connect(clientId);
+                client.Subscribe(new string[] { "/rover/motor" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Check Mosquitto installed on Raspberry Pi. sudo apt install mosquitto");
+            }
 
             tcp.Listen(roverActions);
         }
