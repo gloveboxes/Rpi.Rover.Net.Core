@@ -38,12 +38,14 @@
 
 
 		function onConnectionLost() {
+			document.getElementById("Connect").disabled = false;
 			console.log("connection lost");
 			document.getElementById("status").innerHTML = "Connection Lost";
 			connected_flag = 0;
 		}
 
 		function onFailure(message) {
+			document.getElementById("Connect").disabled = false;
 			console.log("Failed");
 			document.getElementById("status").innerHTML = "Connection Failed- Retrying";
 			setTimeout(MQTTconnect, reconnectTimeout);
@@ -55,6 +57,7 @@
 
 		function onConnect() {
 			// Once a connection has been made, make a subscription and send a message.
+			document.getElementById("Connect").disabled = true;
 			connected_flag = 1
 			document.getElementById("status").innerHTML = "Connected to " + host + " on port " + port;
 			console.log("on Connect " + connected_flag);
@@ -126,10 +129,10 @@
 		document.onkeydown = function (event) {
 			switch (event.keyCode) {
 				case 38: // up key
-					send_command(cmds.Forward);
+					send_command(cmds.Backward);
 					break;
 				case 40: // down key
-					send_command(cmds.Backward)
+					send_command(cmds.Forward)
 					break;
 				case 37: // left key
 					send_command(cmds.LeftForward);
@@ -187,7 +190,7 @@
 
 					<label>Server:&nbsp;&nbsp;</label><input type="text" name="server" value="rpirover.local"><br><br>
 					<label>Port:&nbsp;&nbsp;</label><input type="text" name="port" value="9001"><br><br>
-					<label>&nbsp;</label><input type="submit" value="Connect to Rover">
+					<label>&nbsp;</label><input id="Connect"  type="submit" value="Connect to Rover">
 				</form>
 
 			</td>
