@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="M2MqttDotnetCore" Version="1.0.8" />
     <PackageReference Include="System.Device.Gpio" Version="0.1.0-prerelease*" />
   </ItemGroup>
 
