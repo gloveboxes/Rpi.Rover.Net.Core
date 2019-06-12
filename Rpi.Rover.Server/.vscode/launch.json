@@ -11,6 +11,7 @@
             "preLaunchTask": "publish",
             "program": "~/dotnet/${workspaceFolderBasename}/${workspaceFolderBasename}",
             "cwd": "~/dotnet/${workspaceFolderBasename}",
+            "args":"https://rover-controller.azurewebsites.net/api",
             "stopAtEntry": false,
             "console": "internalConsole",
             "linux": {
@@ -41,7 +42,7 @@
                         "-ssh",
                         "-pw",
                         "raspberry",
-                        "pi@192.168.0.126"
+                        "pi@rpirover.local"
                     ],
                     "debuggerPath": "~/vsdbg/vsdbg"
                 }

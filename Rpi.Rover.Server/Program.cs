@@ -12,7 +12,9 @@ using Glovebox.Graphics.Drivers;
 using Glovebox.Graphics.LedType;
 using Glovebox.Graphics.Font;
 using System.Drawing;
-
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Rpi.listen
 {
@@ -66,12 +68,52 @@ namespace Rpi.listen
         static LED8x8Matrix matrix = new LED8x8Matrix(driver, Fonts.CP437);
 
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             matrix.Brightness = 1;
             matrix.Blink = LedDriver.BlinkRate.Slow;
             driver.Write(new ulong[] { 0 }, new ulong[] { (ulong)Symbols.Heart });
 
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Expecting Rover Controller SignalR Azure Function URI as command line argument");
+            }
+            else
+            {
+                Console.WriteLine(args[0]);
+            }
+
+            Uri signalrFunctionUri = new Uri(args[0]);
+
+            var signalrConnection = new HubConnectionBuilder()
+                 .WithUrl(signalrFunctionUri)
+                 .ConfigureLogging(logging =>
+                 {
+                     logging.SetMinimumLevel(LogLevel.Information);
+                     logging.AddConsole();
+                 }).Build();
+
+            signalrConnection.On<string>("newMessage", roverActions);
+
+            signalrConnection.Closed += async e =>
+            {
+                Console.WriteLine("### SignalR Connection closed... ###");
+                await signalrConnection.StartAsync();
+                Console.WriteLine("### Connected to SignalR... ###");
+            };
+
+            try
+            {
+                await signalrConnection.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+
+            //set up MQTT Subscriber
             try
             {
                 client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
@@ -83,6 +125,7 @@ namespace Rpi.listen
             {
                 Console.WriteLine("Check Mosquitto installed on Raspberry Pi. sudo apt install mosquitto");
             }
+
 
             tcp.Listen(roverActions);
         }

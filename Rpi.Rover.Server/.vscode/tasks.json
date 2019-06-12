@@ -39,7 +39,7 @@
                     "&&",
                     "bash",
                     "-c",
-                    "\"rsync -rvuz ${command:extension.vscode-wsl-workspaceFolder}/bin/linux-arm/publish/ pi@192.168.0.126:/home/pi/dotnet/${workspaceFolderBasename}\""
+                    "\"rsync -rvuz ${command:extension.vscode-wsl-workspaceFolder}/bin/linux-arm/publish/ pi@rpirover.local:/home/pi/dotnet/${workspaceFolderBasename}\""
                 ],
             },
             "problemMatcher": "$msCompile"
